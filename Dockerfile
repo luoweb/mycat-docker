@@ -3,16 +3,18 @@ RUN echo "root:root" | chpasswd
 RUN yum -y install net-tools
 
 # install java
-ADD http://dl.mycat.io/jdk-8u20-linux-x64.tar.gz /usr/local/
-RUN cd /usr/local && tar -zxvf jdk-8u20-linux-x64.tar.gz && ls -lna && rm jdk-8u20-linux-x64.tar.gz
+# ADD http://dl.mycat.io/jdk-8u20-linux-x64.tar.gz /usr/local/
+# RUN cd /usr/local && tar -zxvf jdk-8u20-linux-x64.tar.gz && ls -lna && rm jdk-8u20-linux-x64.tar.gz
+#install mycat
+# ADD http://dl.mycat.io/1.6.5/Mycat-server-1.6.5-release-20180122220033-linux.tar.gz /usr/local
+# RUN cd /usr/local && tar -zxvf Mycat-server-1.6.5-release-20180122220033-linux.tar.gz && ls -lna && rm Mycat-server-1.6.5-release-20180122220033-linux.tar.gz
 
-ENV JAVA_HOME /usr/local/jdk1.8.0_20
+ADD jre1.8.0_20.tar.gz /usr/local/
+ADD Mycat-server-1.6.5-release-20180122220033-linux.tar.gz /usr/local/
+ENV JAVA_HOME /usr/local/jre
 ENV CLASSPATH ${JAVA_HOME}/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 ENV PATH $PATH:${JAVA_HOME}/bin
 
-#install mycat
-ADD http://dl.mycat.io/1.6.5/Mycat-server-1.6.5-release-20180122220033-linux.tar.gz /usr/local
-RUN cd /usr/local && tar -zxvf Mycat-server-1.6.5-release-20180122220033-linux.tar.gz && ls -lna && rm Mycat-server-1.6.5-release-20180122220033-linux.tar.gz
 
 #download mycat-ef-proxy
 #RUN mkdir -p /usr/local/proxy
